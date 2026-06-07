@@ -91,17 +91,6 @@ An affordable, AI-powered platform that connects to a business's existing billin
 - Located at Industrial Area-B, Partap Chowk
 - Leverage government schemes: **CGTMSE, CLCSS**
 
----
-
-## 🎯 Competitive Advantage
-
-| Feature | Vypaar Setu AI | Tally | Zoho Books | Power BI |
-|---------|---------------|-------|------------|----------|
-| AI Recommendations | ✅ Core feature | ❌ | Limited | Requires setup |
-| Actionable Insights | ✅ Decisions, not data | ❌ | ❌ | ❌ |
-| Ease of Use | ✅ Very easy | Medium | Medium | Complex |
-| MSME Focus | ✅ Built for MSMEs | Accounting only | Accounting only | Not specific |
-| Regional Language | ✅ Hindi, Punjabi | ❌ | ❌ | ❌ |
 
 ---
 
@@ -113,11 +102,5 @@ An affordable, AI-powered platform that connects to a business's existing billin
 
 ---
 
-## 👨‍💻 Team
 
-**NextGen Thinkers**
-Submitted for AICTE Idea Lab | June 2026
-
----
-
-*This project has not been published or submitted anywhere else prior to this AICTE Idea Lab submission.*
+*This project has not been published anywhere else prior to this AICTE Idea Lab submission.*
