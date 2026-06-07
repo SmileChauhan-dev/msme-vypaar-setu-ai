@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSME Vypaar Setu AI — Stop Guessing. Start Growing.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy2: #0f2044;
+    --teal: #0d9e75;
+    --teal2: #0bbf8a;
+    --gold: #e9a825;
+    --white: #ffffff;
+    --off: #f0f4f8;
+    --gray: #8a9bb4;
+    --light: #e8f5f1;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 5vw;
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13,158,117,0.18);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.25rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-mark {
+    width: 36px; height: 36px; background: var(--teal);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--navy); font-weight: 800;
+  }
+  .logo span { color: var(--teal2); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: rgba(255,255,255,0.75);
+    font-size: 0.92rem; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal2); }
+  .nav-cta {
+    background: var(--teal); color: var(--navy) !important;
+    padding: 0.5rem 1.25rem; border-radius: 6px; font-weight: 500 !important;
+  }
+  .nav-cta:hover { background: var(--teal2) !important; color: var(--navy) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 6rem 5vw 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(13,158,117,0.13) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(13,158,117,0.12); border: 1px solid rgba(13,158,117,0.3);
+    color: var(--teal2); padding: 0.4rem 1rem; border-radius: 100px;
+    font-size: 0.82rem; font-weight: 500; margin-bottom: 1.8rem;
+    letter-spacing: 0.03em;
+  }
+  .dot { width: 7px; height: 7px; background: var(--teal2); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .hero h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    line-height: 1.1; margin-bottom: 1.4rem;
+    max-width: 820px;
+  }
+  .hero h1 .green { color: var(--teal2); }
+  .hero h1 .gold { color: var(--gold); }
+  .hero p {
+    font-size: clamp(1rem, 1.8vw, 1.2rem); color: rgba(255,255,255,0.68);
+    max-width: 560px; line-height: 1.7; margin-bottom: 2.4rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--teal); color: var(--navy);
+    padding: 0.85rem 2rem; border-radius: 8px;
+    font-weight: 600; font-size: 1rem; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--teal2); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.25); color: var(--white);
+    padding: 0.85rem 2rem; border-radius: 8px;
+    font-weight: 500; font-size: 1rem; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--teal2); background: rgba(13,158,117,0.08); }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--navy2);
+    border-top: 1px solid rgba(13,158,117,0.15);
+    border-bottom: 1px solid rgba(13,158,117,0.15);
+    padding: 2.5rem 5vw;
+    display: flex; justify-content: center; gap: 0;
+  }
+  .stat {
+    text-align: center; padding: 0 4vw;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 2.4rem; color: var(--teal2);
+  }
+  .stat-label { font-size: 0.85rem; color: var(--gray); margin-top: 0.25rem; }
+
+  /* SECTION */
+  section { padding: 5rem 5vw; }
+  .section-tag {
+    font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--teal2); font-weight: 600; margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.2; margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--gray); max-width: 520px; line-height: 1.7; font-size: 1rem; }
+
+  /* PROBLEM */
+  .problem-section { background: var(--navy); }
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    margin-top: 3.5rem;
+  }
+  .problem-visual {
+    background: var(--navy2); border: 1px solid rgba(13,158,117,0.12);
+    border-radius: 16px; padding: 2rem; position: relative;
+  }
+  .donut-wrap { display: flex; align-items: center; gap: 2rem; margin-bottom: 1.5rem; }
+  .donut { width: 120px; height: 120px; position: relative; flex-shrink: 0; }
+  .donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .donut-label {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+  }
+  .donut-label span:first-child { font-size: 1.6rem; font-weight: 800; color: var(--teal2); }
+  .donut-label span:last-child { font-size: 0.65rem; color: var(--gray); }
+  .donut-legend { flex: 1; }
+  .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 0.6rem; font-size: 0.85rem; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .problem-points { list-style: none; }
+  .problem-points li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.95rem; color: rgba(255,255,255,0.8);
+  }
+  .problem-points li:last-child { border-bottom: none; }
+  .problem-icon {
+    width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    font-size: 0.9rem;
+    margin-top: 1px;
+  }
+
+  /* HOW IT WORKS */
+  .how-section { background: #0c1e36; }
+  .steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    margin-top: 3.5rem; position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute; top: 36px; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--teal2) 100%);
+    z-index: 0;
+  }
+  .step { text-align: center; padding: 0 1rem; position: relative; z-index: 1; }
+  .step-circle {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--navy); border: 2px solid var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-size: 1.4rem;
+  }
+  .step-num {
+    position: absolute; top: -4px; right: calc(50% - 46px);
+    background: var(--teal); color: var(--navy);
+    width: 20px; height: 20px; border-radius: 50%;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.7rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .step p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+  .step-tag {
+    display: inline-block; margin-top: 0.75rem;
+    background: rgba(13,158,117,0.12); color: var(--teal2);
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 500;
+  }
+
+  /* FEATURES */
+  .features-section { background: var(--navy); }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    margin-top: 3.5rem;
+  }
+  .feature-card {
+    background: var(--navy2); border: 1px solid rgba(13,158,117,0.1);
+    border-radius: 14px; padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .feature-card:hover { border-color: rgba(13,158,117,0.4); transform: translateY(-3px); }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: rgba(13,158,117,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1.1rem;
+  }
+  .feature-card h3 {
+    font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .feature-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.65; }
+
+  /* DASHBOARD MOCKUP */
+  .demo-section { background: #0c1e36; }
+  .demo-wrap {
+    margin-top: 3.5rem;
+    background: var(--navy2); border: 1px solid rgba(13,158,117,0.15);
+    border-radius: 18px; padding: 1.5rem; overflow: hidden;
+  }
+  .demo-bar {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 1.25rem;
+  }
+  .demo-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .demo-title {
+    font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600;
+    color: var(--gray); margin-left: auto;
+  }
+  .dashboard {
+    background: #08152a; border-radius: 12px; padding: 1.5rem;
+    display: grid; grid-template-columns: 200px 1fr; gap: 1.25rem;
+  }
+  .dash-sidebar {
+    background: var(--navy2); border-radius: 10px; padding: 1.25rem;
+  }
+  .dash-logo {
+    font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 800;
+    color: var(--teal2); margin-bottom: 1.5rem;
+  }
+  .dash-nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 0.55rem 0.75rem; border-radius: 8px;
+    font-size: 0.8rem; color: var(--gray); cursor: pointer;
+    margin-bottom: 4px;
+  }
+  .dash-nav-item.active { background: rgba(13,158,117,0.15); color: var(--teal2); }
+  .dash-main { display: flex; flex-direction: column; gap: 1.1rem; }
+  .dash-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+  .dash-card {
+    background: var(--navy2); border-radius: 10px; padding: 1rem 1.25rem;
+    border: 1px solid rgba(13,158,117,0.08);
+  }
+  .dash-card-label { font-size: 0.72rem; color: var(--gray); margin-bottom: 0.3rem; }
+  .dash-card-num {
+    font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800;
+  }
+  .dash-card-delta { font-size: 0.75rem; margin-top: 2px; }
+  .up { color: var(--teal2); }
+  .chart-area {
+    background: var(--navy2); border-radius: 10px; padding: 1rem 1.25rem;
+    border: 1px solid rgba(13,158,117,0.08);
+  }
+  .chart-title { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.75rem; }
+  .bars { display: flex; align-items: flex-end; gap: 8px; height: 80px; }
+  .bar { flex: 1; border-radius: 4px 4px 0 0; background: rgba(13,158,117,0.25); position: relative; }
+  .bar.highlight { background: var(--teal); }
+  .insights-area {
+    background: var(--navy2); border-radius: 10px; padding: 1rem 1.25rem;
+    border: 1px solid rgba(13,158,117,0.08);
+    grid-column: span 2;
+  }
+  .insight-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.78rem;
+  }
+  .insight-item:last-child { border-bottom: none; }
+  .insight-badge {
+    padding: 0.2rem 0.6rem; border-radius: 4px;
+    font-size: 0.68rem; font-weight: 600; flex-shrink: 0; margin-top: 1px;
+  }
+  .badge-green { background: rgba(13,158,117,0.2); color: var(--teal2); }
+  .badge-gold { background: rgba(233,168,37,0.2); color: var(--gold); }
+  .badge-blue { background: rgba(56,145,219,0.2); color: #5badf0; }
+
+  /* COMPARISON */
+  .compare-section { background: var(--navy); }
+  .compare-table-wrap { margin-top: 3rem; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    padding: 1rem 1.25rem; text-align: left; font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  thead th.highlight-col { color: var(--teal2); }
+  tbody td {
+    padding: 1rem 1.25rem; font-size: 0.88rem; color: rgba(255,255,255,0.8);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  tbody td.feature-label { font-weight: 500; color: var(--white); }
+  .check { color: var(--teal2); font-size: 1rem; }
+  .cross { color: rgba(255,255,255,0.25); }
+  .partial { color: var(--gold); font-size: 0.82rem; }
+  tbody tr:hover td { background: rgba(13,158,117,0.04); }
+  .highlight-col { background: rgba(13,158,117,0.06); }
+
+  /* PRICING */
+  .pricing-section { background: #0c1e36; }
+  .pricing-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    max-width: 700px; margin: 3.5rem auto 0;
+  }
+  .price-card {
+    background: var(--navy2); border: 1px solid rgba(13,158,117,0.12);
+    border-radius: 16px; padding: 2rem;
+  }
+  .price-card.featured {
+    border-color: var(--teal);
+    position: relative; overflow: hidden;
+  }
+  .price-card.featured::before {
+    content: 'Most Popular';
+    position: absolute; top: 16px; right: -22px;
+    background: var(--teal); color: var(--navy);
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.3rem 2.5rem; transform: rotate(35deg);
+  }
+  .plan-name {
+    font-size: 0.82rem; color: var(--gray); font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.6rem;
+  }
+  .plan-price {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.4rem;
+    margin-bottom: 0.25rem;
+  }
+  .plan-price span { font-size: 1rem; font-weight: 400; color: var(--gray); }
+  .plan-desc { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.5rem; }
+  .plan-features { list-style: none; margin-bottom: 1.75rem; }
+  .plan-features li {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.88rem; padding: 0.4rem 0; color: rgba(255,255,255,0.8);
+  }
+  .plan-features li::before { content: '✓'; color: var(--teal2); font-weight: 700; }
+  .plan-btn {
+    display: block; text-align: center;
+    padding: 0.8rem; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem; text-decoration: none;
+    transition: 0.2s;
+  }
+  .plan-btn-outline {
+    border: 1px solid rgba(13,158,117,0.4); color: var(--teal2);
+  }
+  .plan-btn-outline:hover { background: rgba(13,158,117,0.1); }
+  .plan-btn-fill { background: var(--teal); color: var(--navy); }
+  .plan-btn-fill:hover { background: var(--teal2); }
+
+  /* IMPACT */
+  .impact-section { background: var(--navy); text-align: center; }
+  .impact-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    margin-top: 3.5rem;
+  }
+  .impact-item {}
+  .impact-num {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 3rem; color: var(--teal2); line-height: 1;
+  }
+  .impact-label {
+    font-size: 0.92rem; color: rgba(255,255,255,0.65); margin-top: 0.5rem;
+  }
+  .impact-cta {
+    margin-top: 4rem;
+    background: rgba(13,158,117,0.08); border: 1px solid rgba(13,158,117,0.25);
+    border-radius: 20px; padding: 3rem 2rem;
+  }
+  .impact-cta h2 {
+    font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 1rem;
+  }
+  .impact-cta p { color: var(--gray); margin-bottom: 2rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy2); border-top: 1px solid rgba(13,158,117,0.1);
+    padding: 2rem 5vw; display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; }
+  .footer-logo span { color: var(--teal2); }
+  footer p { font-size: 0.82rem; color: var(--gray); }
+  .footer-tagline { font-size: 0.82rem; color: var(--teal2); font-weight: 500; }
+
+  @media (max-width: 768px) {
+    .problem-grid, .steps, .features-grid, .pricing-grid, .impact-grid { grid-template-columns: 1fr; }
+    .steps::before { display: none; }
+    .dashboard { grid-template-columns: 1fr; }
+    .dash-sidebar { display: none; }
+    nav .nav-links { display: none; }
+    .stats-bar { flex-wrap: wrap; gap: 1.5rem; }
+    .stat { border-right: none; }
+    .dash-row { grid-template-columns: 1fr 1fr; }
+    .insights-area { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-mark">VS</div>
+    MSME <span>Vypaar Setu AI</span>
+  </div>
+  <div class="nav-links">
+    <a href="#problem">Problem</a>
+    <a href="#how">How It Works</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#pricing" class="nav-cta">Get Started Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">
+    <span class="dot"></span>
+    AI-Powered Business Intelligence for Indian MSMEs
+  </div>
+  <h1>
+    Stop Guessing.<br>
+    <span class="green">Start Growing</span> with<br>
+    <span class="gold">Vypaar Setu AI</span>
+  </h1>
+  <p>India's first AI business consultant built exclusively for Kirana stores, small manufacturers, and local retailers. Data-driven decisions in simple language — no MBA required.</p>
+  <div class="hero-btns">
+    <a href="#how" class="btn-primary">See How It Works →</a>
+    <a href="#demo" class="btn-outline">View Live Demo</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">6Cr+</div>
+    <div class="stat-label">MSMEs across India</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">80%</div>
+    <div class="stat-label">Operating on guesswork</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3X</div>
+    <div class="stat-label">Faster decisions with AI</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">₹499</div>
+    <div class="stat-label">Starting per month</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem-section" id="problem">
+  <div class="section-tag">The Problem</div>
+  <div class="section-title">India's MSMEs are flying blind</div>
+  <p class="section-sub">Over 6 crore small businesses rely on gut feeling over data — not because they don't care, but because data tools were never built for them.</p>
+
+  <div class="problem-grid">
+    <div>
+      <ul class="problem-points">
+        <li>
+          <div class="problem-icon" style="background: rgba(233,168,37,0.15);">⚠️</div>
+          <div><strong>No affordable analytics</strong> — Business intelligence tools cost lakhs and require technical expertise far beyond most MSME owners.</div>
+        </li>
+        <li>
+          <div class="problem-icon" style="background: rgba(224,75,74,0.15);">📉</div>
+          <div><strong>Decisions by intuition</strong> — 80% of pricing, restocking, and marketing is decided by gut feeling, leading to losses and missed opportunities.</div>
+        </li>
+        <li>
+          <div class="problem-icon" style="background: rgba(13,158,117,0.15);">💸</div>
+          <div><strong>Cannot afford consultants</strong> — Expert business advice costs ₹10,000–₹50,000+ per session — completely out of reach for most small owners.</div>
+        </li>
+        <li>
+          <div class="problem-icon" style="background: rgba(91,173,240,0.15);">🌐</div>
+          <div><strong>Language barriers</strong> — Existing tools are in English with complex UX, not designed for Punjabi, Hindi, or other regional language users.</div>
+        </li>
+      </ul>
+    </div>
+    <div class="problem-visual">
+      <div class="donut-wrap">
+        <div class="donut">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="46" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="18"/>
+            <circle cx="60" cy="60" r="46" fill="none" stroke="#e24b4a" stroke-width="18"
+              stroke-dasharray="231 289" stroke-dashoffset="0"/>
+            <circle cx="60" cy="60" r="46" fill="none" stroke="#0d9e75" stroke-width="18"
+              stroke-dasharray="58 462" stroke-dashoffset="-231"/>
+          </svg>
+          <div class="donut-label">
+            <span>80%</span>
+            <span>Guesswork</span>
+          </div>
+        </div>
+        <div class="donut-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#e24b4a"></div> Gut feeling & intuition (80%)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#0d9e75"></div> Data & insights (20%)</div>
+        </div>
+      </div>
+      <div style="font-size:0.82rem; color:var(--gray); text-align:center; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.06);">
+        Business decision-making basis for Indian MSMEs
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div style="text-align: center;">
+    <div class="section-tag">How It Works</div>
+    <div class="section-title">From data to decisions in minutes</div>
+    <p class="section-sub" style="margin: 0 auto;">A simple 4-step journey that any business owner can follow — no technical knowledge needed.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle" style="position:relative;">
+        📂
+        <div class="step-num">1</div>
+      </div>
+      <h3>Connect</h3>
+      <p>Upload your Tally, Excel, Zoho, or CSV billing data in under 5 minutes.</p>
+      <span class="step-tag">Tally · Excel · CSV · API</span>
+    </div>
+    <div class="step">
+      <div class="step-circle" style="position:relative;">
+        🤖
+        <div class="step-num">2</div>
+      </div>
+      <h3>Analyze</h3>
+      <p>AI deeply analyzes your sales trends, inventory health, and customer patterns.</p>
+      <span class="step-tag">AI-Powered Analysis</span>
+    </div>
+    <div class="step">
+      <div class="step-circle" style="position:relative;">
+        💡
+        <div class="step-num">3</div>
+      </div>
+      <h3>Get Insights</h3>
+      <p>Receive clear, actionable recommendations in simple Hindi or English language.</p>
+      <span class="step-tag">Simple Language</span>
+    </div>
+    <div class="step">
+      <div class="step-circle" style="position:relative;">
+        🚀
+        <div class="step-num">4</div>
+      </div>
+      <h3>Act &amp; Grow</h3>
+      <p>Execute AI recommendations and track your profit improvements monthly.</p>
+      <span class="step-tag">Track Growth</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="section-tag">Core Features</div>
+  <div class="section-title">Everything your business needs</div>
+  <p class="section-sub">Built specifically for MSMEs — not adapted, not trimmed down. Purpose-built from the ground up.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Smart Pricing Engine</h3>
+      <p>AI analyzes competitors, demand patterns, and cost structures to recommend optimal prices that maximize profit margins.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Demand Forecasting</h3>
+      <p>Predict sales for the next 2–4 weeks using historical data and seasonal trends. Never overstock or run out of key items again.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <h3>Inventory Optimization</h3>
+      <p>Know exactly what to reorder, when, and in what quantity. Reduce dead stock and free up working capital.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📣</div>
+      <h3>Marketing Recommendations</h3>
+      <p>Get personalized WhatsApp offer suggestions, promotional timing, and customer targeting based on your actual data.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📈</div>
+      <h3>Profit & Loss Insights</h3>
+      <p>Visual monthly P&amp;L breakdowns in plain language. Know which products earn and which drain your resources.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌐</div>
+      <h3>Regional Language Support</h3>
+      <p>Full support for Hindi, Punjabi, and other regional languages. Business intelligence that speaks your language.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD DEMO -->
+<section class="demo-section" id="demo">
+  <div style="text-align: center;">
+    <div class="section-tag">Live Dashboard</div>
+    <div class="section-title">Your business at a glance</div>
+  </div>
+  <div class="demo-wrap">
+    <div class="demo-bar">
+      <div class="demo-dot" style="background:#ff5f57"></div>
+      <div class="demo-dot" style="background:#febc2e"></div>
+      <div class="demo-dot" style="background:#28c840"></div>
+      <div class="demo-title">MSME SmartAI Dashboard — Sharma General Store, Ludhiana</div>
+    </div>
+    <div class="dashboard">
+      <div class="dash-sidebar">
+        <div class="dash-logo">Vypaar Setu AI</div>
+        <div class="dash-nav-item active">📊 Dashboard</div>
+        <div class="dash-nav-item">📦 Inventory</div>
+        <div class="dash-nav-item">💡 Insights</div>
+        <div class="dash-nav-item">📣 Marketing</div>
+        <div class="dash-nav-item">💰 Pricing</div>
+        <div class="dash-nav-item">📈 Reports</div>
+      </div>
+      <div class="dash-main">
+        <div class="dash-row">
+          <div class="dash-card">
+            <div class="dash-card-label">Monthly Sales</div>
+            <div class="dash-card-num">₹2,45,000</div>
+            <div class="dash-card-delta up">▲ +12% vs last month</div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-label">Net Profit</div>
+            <div class="dash-card-num">₹38,500</div>
+            <div class="dash-card-delta up">▲ +18% vs last month</div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-label">Demand Next Week</div>
+            <div class="dash-card-num">▲ +22%</div>
+            <div class="dash-card-delta" style="color:var(--gold);">Restock Product B now</div>
+          </div>
+        </div>
+        <div class="dash-row" style="grid-template-columns: 1fr 2fr;">
+          <div class="chart-area">
+            <div class="chart-title">Weekly revenue trend</div>
+            <div class="bars">
+              <div class="bar" style="height:45%"></div>
+              <div class="bar" style="height:55%"></div>
+              <div class="bar" style="height:50%"></div>
+              <div class="bar" style="height:65%"></div>
+              <div class="bar highlight" style="height:80%"></div>
+              <div class="bar" style="height:70%"></div>
+              <div class="bar highlight" style="height:90%"></div>
+            </div>
+          </div>
+          <div class="insights-area">
+            <div class="chart-title">AI Recommendations for you</div>
+            <div class="insight-item">
+              <span class="insight-badge badge-green">Pricing</span>
+              <span>Increase price of Product A by 8% — potential +12% profit with no demand drop</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-badge badge-gold">Inventory</span>
+              <span>Restock Product B by Friday — demand is high (22% spike) and current stock covers 3 days only</span>
+            </div>
+            <div class="insight-item">
+              <span class="insight-badge badge-blue">Marketing</span>
+              <span>Run a WhatsApp offer on slow-moving items C & D this weekend to clear stock before expiry</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare-section">
+  <div style="text-align: center;">
+    <div class="section-tag">Why Choose Us</div>
+    <div class="section-title">Built for MSMEs, not adapted for them</div>
+  </div>
+  <div class="compare-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="highlight-col">MSME Vypaar Setu AI</th>
+          <th>Tally</th>
+          <th>Zoho Books</th>
+          <th>Power BI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="feature-label">AI Recommendations</td>
+          <td class="highlight-col"><span class="check">✓</span> Core feature</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="partial">Limited</span></td>
+          <td><span class="partial">Requires setup</span></td>
+        </tr>
+        <tr>
+          <td class="feature-label">Actionable Insights</td>
+          <td class="highlight-col"><span class="check">✓</span> Decisions, not data</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td class="feature-label">Ease of Use</td>
+          <td class="highlight-col"><span class="check">✓</span> Very easy, non-technical</td>
+          <td><span class="partial">Medium</span></td>
+          <td><span class="partial">Medium</span></td>
+          <td><span class="partial">Complex</span></td>
+        </tr>
+        <tr>
+          <td class="feature-label">MSME Focus</td>
+          <td class="highlight-col"><span class="check">✓</span> Built for MSMEs</td>
+          <td><span class="partial">Accounting only</span></td>
+          <td><span class="partial">Accounting only</span></td>
+          <td><span class="cross">✗ Not specific</span></td>
+        </tr>
+        <tr>
+          <td class="feature-label">Regional Language</td>
+          <td class="highlight-col"><span class="check">✓</span> Hindi, Punjabi & more</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td class="feature-label">MSME-Friendly Pricing</td>
+          <td class="highlight-col"><span class="check">✓</span> From ₹499/month</td>
+          <td><span class="partial">₹18,000+/year</span></td>
+          <td><span class="partial">₹1,000+/month</span></td>
+          <td><span class="partial">₹715+/user/month</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div style="text-align: center;">
+    <div class="section-tag">Pricing</div>
+    <div class="section-title">Affordable for every Indian business</div>
+    <p class="section-sub" style="margin: 0 auto;">Much cheaper than a consultant, infinitely more scalable. Choose the plan that fits your size.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="plan-name">Basic Plan</div>
+      <div class="plan-price">₹499 <span>/ month</span></div>
+      <div class="plan-desc">Perfect for Kirana stores and small retailers getting started with AI.</div>
+      <ul class="plan-features">
+        <li>Sales & profit analysis</li>
+        <li>Basic demand forecasting</li>
+        <li>Inventory alerts</li>
+        <li>Hindi language support</li>
+        <li>Tally & Excel integration</li>
+      </ul>
+      <a href="#" class="plan-btn plan-btn-outline">Get Started Free</a>
+    </div>
+    <div class="price-card featured">
+      <div class="plan-name">Advanced AI</div>
+      <div class="plan-price">₹2,499 <span>/ month</span></div>
+      <div class="plan-desc">Full AI power for growing manufacturers and multi-product retailers.</div>
+      <ul class="plan-features">
+        <li>Everything in Basic</li>
+        <li>Advanced AI recommendations</li>
+        <li>Marketing & WhatsApp offers</li>
+        <li>Smart pricing engine</li>
+        <li>Multi-location support</li>
+        <li>Premium AI insights reports</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#" class="plan-btn plan-btn-fill">Start 14-day Free Trial</a>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:1.5rem; color:var(--gray); font-size:0.85rem;">
+    No credit card required · Cancel anytime · 14-day free trial
+  </p>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section" id="impact">
+  <div class="section-tag">Our Vision</div>
+  <div class="section-title">The Impact We Are Building Towards</div>
+
+  <div class="impact-grid">
+    <div class="impact-item">
+      <div class="impact-num">6Cr+</div>
+      <div class="impact-label">MSMEs in India — a massive underserved market ready for intelligent tools</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-num">80%</div>
+      <div class="impact-label">Operating on guesswork — our primary opportunity to convert instinct into intelligence</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-num">3X</div>
+      <div class="impact-label">Faster decisions with clear AI-driven recommendations for every business owner</div>
+    </div>
+  </div>
+
+  <div class="impact-cta">
+    <h2>MSME Vypaar Setu AI is a movement, not just a product.</h2>
+    <p>Putting the power of data in the hands of every Indian business owner — from the smallest Kirana to the growing manufacturer.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="#pricing" class="btn-primary">Start Free Trial Today →</a>
+      <a href="#how" class="btn-outline">See How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">MSME <span>Vypaar Setu AI</span></div>
+    <p style="margin-top:4px;">By NextGen Thinkers · Chandigarh Engineering College</p>
+  </div>
+  <div class="footer-tagline">Stop Guessing. Start Growing. 🚀</div>
+  <p>© 2026 NextGen Thinkers. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
